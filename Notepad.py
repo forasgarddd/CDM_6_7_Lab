@@ -11,7 +11,7 @@ class Notepad:
     # default window width and height
     __thisWidth = 300
     __thisHeight = 300
-    __thisTextArea = Text(__root)
+    __thisTextArea = Text(bg="white", fg="black", wrap=WORD)
     __thisMenuBar = Menu(__root)
     __thisFileMenu = Menu(__thisMenuBar, tearoff=0)
 
@@ -21,11 +21,6 @@ class Notepad:
 
     def __init__(self, **kwargs):
 
-        # Set icon
-        try:
-            self.__root.wm_iconbitmap("Notepad.ico")
-        except:
-            pass
 
         # Set window size (the default is 300x300)
 
@@ -40,7 +35,7 @@ class Notepad:
             pass
 
         # Set the window text
-        self.__root.title("Untitled - Notepad")
+        self.__root.title("Text Editor")
 
         # Center the window
         screenWidth = self.__root.winfo_screenwidth()
