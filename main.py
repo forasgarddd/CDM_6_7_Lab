@@ -1,40 +1,4 @@
-from tkinter import *
-from tkinter import filedialog
+from Notepad import *
 
-root = Tk()
-root.title("Title test")
-
-#New file function
-def new_file():
-    my_text.delete("1.0", END)
-    root.title("New File")
-
-#Open file function
-def open_file():
-    my_text.delete("1.0", END)
-    text_file = filedialog.askopenfile(initialdir='C:/Users/Ivan/PycharmProjects/CDM_6_7_Lab', title="Open File",
-                                       filetypes=(("Text files", "*.txt"), ("All Files", "*.*")))
-
-    text_file = open("testfile.txt", "r")
-    stuff = text_file.read()
-
-    my_text.insert(END, stuff)
-    text_file.close()
-
-my_text = Text(width=97, height=25, selectbackground="white", selectforeground="black", undo=True)
-my_text.pack()
-
-#Create Menu
-my_menu = Menu(root)
-root.config(menu=my_menu)
-
-#Add File menu
-file_menu = Menu(my_menu, tearoff=0)
-my_menu.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="New", command=new_file)
-file_menu.add_command(label="Open", command=open_file)
-file_menu.add_command(label="Save")
-file_menu.add_separator()
-file_menu.add_command(label="Exit", command=root.quit)
-
-root.mainloop()
+notepad = Notepad(width=600, height=400)
+notepad.run()
