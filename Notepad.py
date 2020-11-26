@@ -1,8 +1,16 @@
 from tkinter.filedialog import *
-from string import ascii_uppercase
 
 
 class Notepad:
+    from DefaultFunctionsLogic.OpenFileLogic import open_file
+    from DefaultFunctionsLogic.NewFileLogic import new_file
+    from DefaultFunctionsLogic.SaveFileLogic import save_file
+    from DefaultFunctionsLogic.LineCountLogic import find_line_count
+    from DefaultFunctionsLogic.WordCountLogic import find_word_count
+    from TasksFunctionsLogic.Task5Logic import eng_alph_print
+    from TasksFunctionsLogic.Task7Logic import a_more_than_b
+    from TasksFunctionsLogic.Task35Logic import palindrome_check
+
     # <<<Editor window parameters>>>
 
     root = Tk()
@@ -29,10 +37,13 @@ class Notepad:
     scrollBar.pack(side=RIGHT, fill=Y)
     file = None
 
+    # app run function
+    def run(self):
+        self.root.mainloop()
+
     # <<<Functions executions>>>
 
     def __init__(self):
-
         # set title
         self.root.title("Text Editor")
 
@@ -85,111 +96,3 @@ class Notepad:
 
         # config menu
         self.root.config(menu=self.menuBar)
-
-    # <<<Functions logic>>>
-
-    # to open file
-    def open_file(self):
-
-        self.file = askopenfilename(defaultextension=".txt",
-                                    filetypes=[("All Files", "*.*"),
-                                               ("Text Documents", "*.txt")])
-        if self.file == "":
-            # no file to open
-            self.file = None
-        else:
-            # try to open the file
-            # set title
-            self.root.title(os.path.basename(self.file) + " - Notepad")
-            self.textArea.delete(1.0, END)
-            ofile = open(self.file, "r")
-            self.textArea.insert(1.0, ofile.read())
-            ofile.close()
-
-    # to create a new file
-    def new_file(self):
-        self.root.title("New File - Text Editor")
-        self.file = None
-        self.textArea.delete(1.0, END)
-
-    # to save file
-    def save_file(self):
-        if self.file == None:
-            # save as new file
-            self.file = asksaveasfilename(initialfile='Untitled.txt',
-                                          defaultextension=".txt",
-                                          filetypes=[("All Files", "*.*"),
-                                                     ("Text Documents", "*.txt")])
-            if self.file == "":
-                self.file = None
-            else:
-                # try to save the file
-                file = open(self.file, "w")
-                file.write(self.textArea.get(1.0, END))
-                file.close()
-                # change title
-                self.root.title(os.path.basename(self.file) + " - Notepad")
-        else:
-            file = open(self.file, "w")
-            file.write(self.textArea.get(1.0, END))
-            file.close()
-
-    # to count lines
-    def find_line_count(self):
-        if self.textArea.compare("end-1c", "!=", "1.0"):
-            self.line_count_menu.entryconfig(0, label=str(str(int
-                                                              (self.textArea.index('end')
-                                                               .split('.')[0]) - 1)
-                                                          + " Lines"))
-
-    # to count words
-    def find_word_count(self):
-        if self.textArea.compare("end-1c", "!=", "1.0"):
-            self.word_count_menu.entryconfig(0, label=str(str(len
-                                                              (self.textArea.get(0.0, END).replace("\n", " ")
-                                                               .split(" ")) - 1)
-                                                          + " Words"))
-
-    # task 5 logic
-    def eng_alph_print(self):
-        self.root.title("Task 5")
-        self.file = None
-        self.textArea.delete(1.0, END)
-        self.textArea.insert(1.0, ascii_uppercase)
-
-    # task 7 logic
-    def a_more_than_b(self):
-        self.root.title("Task 7")
-        self.file = None
-        stextarea = self.textArea.get(1.0, END)
-        a_count = stextarea.count("a") + stextarea.count("A")
-        b_count = stextarea.count("b") + stextarea.count("B")
-        self.textArea.delete(1.0, END)
-        if a_count > b_count:
-            self.textArea.insert(1.0, "\n" + stextarea)
-            self.textArea.insert(1.0, "true")
-        else:
-            self.textArea.insert(1.0, "\n" + stextarea)
-            self.textArea.insert(1.0, "false")
-
-    # task 35 logic
-    def palindrome_check(self):
-        self.root.title("Task 35")
-        self.file = None
-        stextarea = self.textArea.get(1.0, END).replace("\n", "")
-        lcstextarea = stextarea.lower()
-        rev_stextarea = ''.join(reversed(lcstextarea))
-        if len(lcstextarea.split()) > 1:
-            self.textArea.delete(1.0, END)
-            self.textArea.insert(1.0,
-                                 "Введений текст не є вірним: " + "'" + stextarea + "'" + "\nНеможливо обробити більше 1 слова")
-        elif rev_stextarea == lcstextarea:
-            self.textArea.delete(1.0, END)
-            self.textArea.insert(1.0, "слово: " + "'" + stextarea + "'" + " є паліндромом")
-        elif rev_stextarea != lcstextarea:
-            self.textArea.delete(1.0, END)
-            self.textArea.insert(1.0, "слово: " + "'" + stextarea + "'" + " не є паліндромом")
-
-    # app run function
-    def run(self):
-        self.root.mainloop()
