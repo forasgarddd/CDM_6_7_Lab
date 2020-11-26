@@ -1,4 +1,4 @@
-from tkinter.filedialog import *
+from tkinter import *
 from string import ascii_uppercase
 
 
