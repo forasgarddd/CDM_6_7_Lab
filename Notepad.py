@@ -1,4 +1,5 @@
 from tkinter.filedialog import *
+from string import ascii_uppercase
 
 
 class Notepad:
@@ -18,6 +19,7 @@ class Notepad:
     menuBar = Menu(root)
     fileMenu = Menu(menuBar, tearoff=0)
     countMenu = Menu(menuBar, tearoff=0)
+    Task5Menu = Menu(menuBar, tearoff=0)
 
     # adding scrollbar
     scrollBar = Scrollbar(textArea, command=textArea.yview)
@@ -55,9 +57,9 @@ class Notepad:
                                   command=self.root.quit)
 
         # count menu cascade
-        self.menuBar.add_cascade(label="Count", menu = self.countMenu)
+        self.menuBar.add_cascade(label="Count", menu=self.countMenu)
 
-        # functions to count menu
+        # some functions to count menu
         self.line_count_menu = Menu(self.countMenu, tearoff=0, postcommand=self.findlinecount)
         self.word_count_menu = Menu(self.countMenu, tearoff=0, postcommand=self.findwordcount)
 
@@ -66,6 +68,11 @@ class Notepad:
 
         self.line_count_menu.add_command(label="0 Lines", command=None)
         self.word_count_menu.add_command(label="0 Words", command=None)
+
+        # Task5 menu cascade
+        self.menuBar.add_cascade(label="Task 5", menu=self.Task5Menu)
+        self.Task5Menu.add_command(label="Print A->Z", command=self.engalphprint)
+
 
         # config menu
         self.root.config(menu=self.menuBar)
@@ -122,13 +129,22 @@ class Notepad:
     def findlinecount(self):
         if self.textArea.compare("end-1c", "!=", "1.0"):
                 self.line_count_menu.entryconfig(0, label=str(str(int
-                                                                  (self.textArea.index('end').split('.')[0]) - 1) + " Lines"))
+                                                                  (self.textArea.index('end').split('.')[0]) - 1)
+                                                              + " Lines"))
 
     # to count words
     def findwordcount(self):
         if self.textArea.compare("end-1c", "!=", "1.0"):
                 self.word_count_menu.entryconfig(0, label=str(str(len
-                                                                  (self.textArea.get(0.0, END).replace("\n", " ").split(" ")) - 1) + " Words"))
+                                                                  (self.textArea.get(0.0, END).replace("\n", " ").split(" ")) - 1)
+                                                              + " Words"))
+
+    #Task 5 logic
+    def engalphprint(self):
+        self.root.title("Task 5")
+        self.file = None
+        self.textArea.delete(1.0, END)
+        self.textArea.insert(1.0, ascii_uppercase)
 
     # app run function
     def run(self):
