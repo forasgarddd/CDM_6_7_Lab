@@ -21,6 +21,7 @@ class Notepad:
     countMenu = Menu(menuBar, tearoff=0)
     task5Menu = Menu(menuBar, tearoff=0)
     task7Menu = Menu(menuBar, tearoff=0)
+    task35Menu = Menu(menuBar, tearoff=0)
 
     # adding scrollbar
     scrollBar = Scrollbar(textArea, command=textArea.yview)
@@ -78,6 +79,10 @@ class Notepad:
         self.menuBar.add_cascade(label="Task 7", menu=self.task7Menu)
         self.task7Menu.add_command(label="Is 'a' more than 'b'?", command=self.a_more_than_b)
 
+        # task 35 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 35", menu=self.task35Menu)
+        self.task35Menu.add_command(label="Is palindrome?", command=self.palindrome_check)
+
         # config menu
         self.root.config(menu=self.menuBar)
 
@@ -132,16 +137,18 @@ class Notepad:
     # to count lines
     def find_line_count(self):
         if self.textArea.compare("end-1c", "!=", "1.0"):
-                self.line_count_menu.entryconfig(0, label=str(str(int
-                                                                  (self.textArea.index('end').split('.')[0]) - 1)
-                                                              + " Lines"))
+            self.line_count_menu.entryconfig(0, label=str(str(int
+                                                              (self.textArea.index('end')
+                                                               .split('.')[0]) - 1)
+                                                          + " Lines"))
 
     # to count words
     def find_word_count(self):
         if self.textArea.compare("end-1c", "!=", "1.0"):
-                self.word_count_menu.entryconfig(0, label=str(str(len
-                                                                  (self.textArea.get(0.0, END).replace("\n", " ").split(" ")) - 1)
-                                                              + " Words"))
+            self.word_count_menu.entryconfig(0, label=str(str(len
+                                                              (self.textArea.get(0.0, END).replace("\n", " ")
+                                                               .split(" ")) - 1)
+                                                          + " Words"))
 
     # task 5 logic
     def eng_alph_print(self):
@@ -154,7 +161,7 @@ class Notepad:
     def a_more_than_b(self):
         self.root.title("Task 7")
         self.file = None
-        stextarea = self.textArea.get("1.0", END)
+        stextarea = self.textArea.get(1.0, END)
         a_count = stextarea.count("a") + stextarea.count("A")
         b_count = stextarea.count("b") + stextarea.count("B")
         self.textArea.delete(1.0, END)
@@ -164,6 +171,24 @@ class Notepad:
         else:
             self.textArea.insert(1.0, "\n" + stextarea)
             self.textArea.insert(1.0, "false")
+
+    # task 35 logic
+    def palindrome_check(self):
+        self.root.title("Task 35")
+        self.file = None
+        stextarea = self.textArea.get(1.0, END).replace("\n", "")
+        lcstextarea = stextarea.lower()
+        rev_stextarea = ''.join(reversed(lcstextarea))
+        if len(lcstextarea.split()) > 1:
+            self.textArea.delete(1.0, END)
+            self.textArea.insert(1.0,
+                                 "Введений текст не є вірним: " + "'" + stextarea + "'" + "\nНеможливо обробити більше 1 слова")
+        elif rev_stextarea == lcstextarea:
+            self.textArea.delete(1.0, END)
+            self.textArea.insert(1.0, "слово: " + "'" + stextarea + "'" + " є паліндромом")
+        elif rev_stextarea != lcstextarea:
+            self.textArea.delete(1.0, END)
+            self.textArea.insert(1.0, "слово: " + "'" + stextarea + "'" + " не є паліндромом")
 
     # app run function
     def run(self):
