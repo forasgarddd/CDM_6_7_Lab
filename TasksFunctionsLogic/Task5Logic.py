@@ -1,7 +1,6 @@
 from tkinter.filedialog import *
 from string import ascii_uppercase
 
-# task 5 logic
 def eng_alph_print(self):
     self.root.title("Task 5")
     self.file = None
