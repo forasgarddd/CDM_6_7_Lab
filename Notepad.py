@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+
 from tkinter import *
 from string import ascii_uppercase
-=======
+
 from tkinter.filedialog import *
->>>>>>> c25e96da550c186896436d257becadbec346054b
+
 
 
 class Notepad:
