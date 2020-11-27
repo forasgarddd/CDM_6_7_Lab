@@ -1,8 +1,21 @@
+<<<<<<< HEAD
 from tkinter import *
 from string import ascii_uppercase
+=======
+from tkinter.filedialog import *
+>>>>>>> c25e96da550c186896436d257becadbec346054b
 
 
 class Notepad:
+    from DefaultFunctionsLogic.OpenFileLogic import open_file
+    from DefaultFunctionsLogic.NewFileLogic import new_file
+    from DefaultFunctionsLogic.SaveFileLogic import save_file
+    from DefaultFunctionsLogic.LineCountLogic import find_line_count
+    from DefaultFunctionsLogic.WordCountLogic import find_word_count
+    from TasksFunctionsLogic.Task5Logic import eng_alph_print
+    from TasksFunctionsLogic.Task7Logic import a_more_than_b
+    from TasksFunctionsLogic.Task35Logic import palindrome_check
+
     # <<<Editor window parameters>>>
 
     root = Tk()
@@ -15,11 +28,13 @@ class Notepad:
     root.grid_rowconfigure(0, weight=1)
     root.grid_columnconfigure(0, weight=1)
 
-    # adding menu
+    # adding menus
     menuBar = Menu(root)
     fileMenu = Menu(menuBar, tearoff=0)
     countMenu = Menu(menuBar, tearoff=0)
-    Task5Menu = Menu(menuBar, tearoff=0)
+    task5Menu = Menu(menuBar, tearoff=0)
+    task7Menu = Menu(menuBar, tearoff=0)
+    task35Menu = Menu(menuBar, tearoff=0)
 
     # adding scrollbar
     scrollBar = Scrollbar(textArea, command=textArea.yview)
@@ -27,10 +42,13 @@ class Notepad:
     scrollBar.pack(side=RIGHT, fill=Y)
     file = None
 
-    # <<<Functions applications>>>
+    # app run function
+    def run(self):
+        self.root.mainloop()
+
+    # <<<Functions executions>>>
 
     def __init__(self):
-
         # set title
         self.root.title("Text Editor")
 
@@ -60,8 +78,8 @@ class Notepad:
         self.menuBar.add_cascade(label="Count", menu=self.countMenu)
 
         # some functions to count menu
-        self.line_count_menu = Menu(self.countMenu, tearoff=0, postcommand=self.findlinecount)
-        self.word_count_menu = Menu(self.countMenu, tearoff=0, postcommand=self.findwordcount)
+        self.line_count_menu = Menu(self.countMenu, tearoff=0, postcommand=self.find_line_count)
+        self.word_count_menu = Menu(self.countMenu, tearoff=0, postcommand=self.find_word_count)
 
         self.countMenu.add_cascade(label="Line count", menu=self.line_count_menu)
         self.countMenu.add_cascade(label="Word count", menu=self.word_count_menu)
@@ -69,83 +87,17 @@ class Notepad:
         self.line_count_menu.add_command(label="0 Lines", command=None)
         self.word_count_menu.add_command(label="0 Words", command=None)
 
-        # Task5 menu cascade
-        self.menuBar.add_cascade(label="Task 5", menu=self.Task5Menu)
-        self.Task5Menu.add_command(label="Print A->Z", command=self.engalphprint)
+        # task 5 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 5", menu=self.task5Menu)
+        self.task5Menu.add_command(label="Print A->Z", command=self.eng_alph_print)
 
+        # task 7 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 7", menu=self.task7Menu)
+        self.task7Menu.add_command(label="Is 'a' more than 'b'?", command=self.a_more_than_b)
+
+        # task 35 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 35", menu=self.task35Menu)
+        self.task35Menu.add_command(label="Is palindrome?", command=self.palindrome_check)
 
         # config menu
         self.root.config(menu=self.menuBar)
-
-    # <<<Functions logic>>>
-
-    # to open file
-    def open_file(self):
-
-        self.file = askopenfilename(defaultextension=".txt",
-                                    filetypes=[("All Files", "*.*"),
-                                               ("Text Documents", "*.txt")])
-        if self.file == "":
-            # no file to open
-            self.file = None
-        else:
-            # try to open the file
-            # set title
-            self.root.title(os.path.basename(self.file) + " - Notepad")
-            self.textArea.delete(1.0, END)
-            ofile = open(self.file, "r")
-            self.textArea.insert(1.0, ofile.read())
-            ofile.close()
-
-    # to create a new file
-    def new_file(self):
-        self.root.title("New File - Text Editor")
-        self.file = None
-        self.textArea.delete(1.0, END)
-
-    # to save file
-    def save_file(self):
-        if self.file == None:
-            # save as new file
-            self.file = asksaveasfilename(initialfile='Untitled.txt',
-                                          defaultextension=".txt",
-                                          filetypes=[("All Files", "*.*"),
-                                                     ("Text Documents", "*.txt")])
-            if self.file == "":
-                self.file = None
-            else:
-                # try to save the file
-                file = open(self.file, "w")
-                file.write(self.textArea.get(1.0, END))
-                file.close()
-                # change title
-                self.root.title(os.path.basename(self.file) + " - Notepad")
-        else:
-            file = open(self.file, "w")
-            file.write(self.textArea.get(1.0, END))
-            file.close()
-
-    # to count lines
-    def findlinecount(self):
-        if self.textArea.compare("end-1c", "!=", "1.0"):
-                self.line_count_menu.entryconfig(0, label=str(str(int
-                                                                  (self.textArea.index('end').split('.')[0]) - 1)
-                                                              + " Lines"))
-
-    # to count words
-    def findwordcount(self):
-        if self.textArea.compare("end-1c", "!=", "1.0"):
-                self.word_count_menu.entryconfig(0, label=str(str(len
-                                                                  (self.textArea.get(0.0, END).replace("\n", " ").split(" ")) - 1)
-                                                              + " Words"))
-
-    #Task 5 logic
-    def engalphprint(self):
-        self.root.title("Task 5")
-        self.file = None
-        self.textArea.delete(1.0, END)
-        self.textArea.insert(1.0, ascii_uppercase)
-
-    # app run function
-    def run(self):
-        self.root.mainloop()
