@@ -12,9 +12,10 @@ class Notepad:
     from DefaultFunctionsLogic.SaveFileLogic import save_file
     from DefaultFunctionsLogic.LineCountLogic import find_line_count
     from DefaultFunctionsLogic.WordCountLogic import find_word_count
-    from TasksFunctionsLogic.Task5Logic import eng_alph_print
+    from TasksFunctionsLogic.Task5Logic import eng_alphabet_print
     from TasksFunctionsLogic.Task7Logic import a_more_than_b
     from TasksFunctionsLogic.Task35Logic import palindrome_check
+    from TasksFunctionsLogic.Task49Logic import print_uppercase
 
     # <<<Editor window parameters>>>
 
@@ -35,11 +36,13 @@ class Notepad:
     task5Menu = Menu(menuBar, tearoff=0)
     task7Menu = Menu(menuBar, tearoff=0)
     task35Menu = Menu(menuBar, tearoff=0)
+    task49Menu = Menu(menuBar, tearoff=0)
 
     # adding scrollbar
     scrollBar = Scrollbar(textArea, command=textArea.yview)
     textArea.config(yscrollcommand=scrollBar.set)
     scrollBar.pack(side=RIGHT, fill=Y)
+
     file = None
 
     # app run function
@@ -89,7 +92,7 @@ class Notepad:
 
         # task 5 menu cascade and execution
         self.menuBar.add_cascade(label="Task 5", menu=self.task5Menu)
-        self.task5Menu.add_command(label="Print A->Z", command=self.eng_alph_print)
+        self.task5Menu.add_command(label="Print A->Z", command=self.eng_alphabet_print)
 
         # task 7 menu cascade and execution
         self.menuBar.add_cascade(label="Task 7", menu=self.task7Menu)
@@ -98,6 +101,10 @@ class Notepad:
         # task 35 menu cascade and execution
         self.menuBar.add_cascade(label="Task 35", menu=self.task35Menu)
         self.task35Menu.add_command(label="Is palindrome?", command=self.palindrome_check)
+
+        # task 49 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 49", menu=self.task49Menu)
+        self.task49Menu.add_command(label="Print uppercase", command=self.print_uppercase)
 
         # config menu
         self.root.config(menu=self.menuBar)
