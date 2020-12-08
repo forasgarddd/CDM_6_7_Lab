@@ -16,6 +16,9 @@ class Notepad:
     from TasksFunctionsLogic.Task7Logic import a_more_than_b
     from TasksFunctionsLogic.Task35Logic import palindrome_check
     from TasksFunctionsLogic.Task49Logic import print_uppercase
+    from TasksFunctionsLogic.Task20Logic import convert
+    from TasksFunctionsLogic.Task38Logic import twoSimilarLetters
+    from TasksFunctionsLogic.Task56Logic import decimalToRoman
 
     # <<<Editor window parameters>>>
 
@@ -37,6 +40,9 @@ class Notepad:
     task7Menu = Menu(menuBar, tearoff=0)
     task35Menu = Menu(menuBar, tearoff=0)
     task49Menu = Menu(menuBar, tearoff=0)
+    task20Menu = Menu(menuBar, tearoff=0)
+    task38Menu = Menu(menuBar, tearoff=0)
+    task56Menu = Menu(menuBar, tearoff=0)
 
     # adding scrollbar
     scrollBar = Scrollbar(textArea, command=textArea.yview)
@@ -105,6 +111,19 @@ class Notepad:
         # task 49 menu cascade and execution
         self.menuBar.add_cascade(label="Task 49", menu=self.task49Menu)
         self.task49Menu.add_command(label="Print uppercase", command=self.print_uppercase)
+
+        # task 20 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 20", menu=self.task20Menu)
+        self.task20Menu.add_command(label="Convert to trinary all before it", command=self.convert)
+
+        # task 38 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 38", menu=self.task38Menu)
+        self.task38Menu.add_command(label="Find two similar letters", command=self.twoSimilarLetters)
+
+        # task 56 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 56", menu=self.task56Menu)
+        self.task56Menu.add_command(label="Convert decimal to roman", command=self.decimalToRoman)
+
 
         # config menu
         self.root.config(menu=self.menuBar)
