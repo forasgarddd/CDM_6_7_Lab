@@ -8,11 +8,15 @@ def convert(self):
     self.file = None
     string_textarea = self.textArea.get(1.0, END)
     self.textArea.delete(1.0, END)
-    i = (int) (string_textarea) - 1
-    while i > 0:
-        ternaryConverter(self, i)
-        self.textArea.insert(1.0,  "\n")
-        i = i - 1
+    try:
+        i = (int) (string_textarea) - 1
+        while i > 0:
+            ternaryConverter(self, i)
+            self.textArea.insert(1.0, "\n")
+            i = i - 1
+    except ValueError:
+        self.textArea.insert(1.0, "Введений текст не є числом")
+
 
 
 def ternaryConverter(self, number):
