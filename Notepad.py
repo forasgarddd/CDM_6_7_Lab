@@ -12,13 +12,16 @@ class Notepad:
     from DefaultFunctionsLogic.SaveFileLogic import save_file
     from DefaultFunctionsLogic.LineCountLogic import find_line_count
     from DefaultFunctionsLogic.WordCountLogic import find_word_count
+    from TasksFunctionsLogic.Task1Logic import indexCount
     from TasksFunctionsLogic.Task5Logic import eng_alphabet_print
     from TasksFunctionsLogic.Task7Logic import a_more_than_b
+    from TasksFunctionsLogic.Task31Logic import a_to_a
     from TasksFunctionsLogic.Task35Logic import palindrome_check
     from TasksFunctionsLogic.Task49Logic import print_uppercase
     from TasksFunctionsLogic.Task20Logic import convert
     from TasksFunctionsLogic.Task38Logic import twoSimilarLetters
     from TasksFunctionsLogic.Task56Logic import decimalToRoman
+    from TasksFunctionsLogic.Task60Logic import zodiak
 
     # <<<Editor window parameters>>>
 
@@ -36,13 +39,16 @@ class Notepad:
     menuBar = Menu(root)
     fileMenu = Menu(menuBar, tearoff=0)
     countMenu = Menu(menuBar, tearoff=0)
+    task1Menu = Menu(menuBar, tearoff=0)
     task5Menu = Menu(menuBar, tearoff=0)
     task7Menu = Menu(menuBar, tearoff=0)
+    task31Menu = Menu(menuBar, tearoff=0)
     task35Menu = Menu(menuBar, tearoff=0)
     task49Menu = Menu(menuBar, tearoff=0)
     task20Menu = Menu(menuBar, tearoff=0)
     task38Menu = Menu(menuBar, tearoff=0)
     task56Menu = Menu(menuBar, tearoff=0)
+    task60Menu = Menu(menuBar, tearoff=0)
 
     # adding scrollbar
     scrollBar = Scrollbar(textArea, command=textArea.yview)
@@ -96,6 +102,10 @@ class Notepad:
         self.line_count_menu.add_command(label="0 Lines", command=None)
         self.word_count_menu.add_command(label="0 Words", command=None)
 
+        # task 1 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 1", menu=self.task1Menu)
+        self.task1Menu.add_command(label="Count sum of letters index", command=self.indexCount)
+
         # task 5 menu cascade and execution
         self.menuBar.add_cascade(label="Task 5", menu=self.task5Menu)
         self.task5Menu.add_command(label="Print A->Z", command=self.eng_alphabet_print)
@@ -103,6 +113,10 @@ class Notepad:
         # task 7 menu cascade and execution
         self.menuBar.add_cascade(label="Task 7", menu=self.task7Menu)
         self.task7Menu.add_command(label="Is 'a' more than 'b'?", command=self.a_more_than_b)
+
+        # task 31 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 31", menu=self.task31Menu)
+        self.task31Menu.add_command(label="a to A", command=self.a_to_a)
 
         # task 35 menu cascade and execution
         self.menuBar.add_cascade(label="Task 35", menu=self.task35Menu)
@@ -123,6 +137,10 @@ class Notepad:
         # task 56 menu cascade and execution
         self.menuBar.add_cascade(label="Task 56", menu=self.task56Menu)
         self.task56Menu.add_command(label="Convert decimal to roman", command=self.decimalToRoman)
+
+        # task 60 menu cascade and execution
+        self.menuBar.add_cascade(label="Task 60", menu=self.task60Menu)
+        self.task60Menu.add_command(label="Know your zodiak sign", command=self.zodiak)
 
 
         # config menu
